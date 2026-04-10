@@ -69,4 +69,8 @@ public class UserController {
 		return ResponseEntity.internalServerError().build();
 	}
 
+	@GetMapping("/admin")
+	public String admin() {
+		return "Acesso ADMIN";
+	}
 }
