@@ -17,7 +17,6 @@ public class OrderMapper {
 
 	public Order toEntity(OrderRequestDTO orderRequestDTO) {
 		return Order.builder()
-			.id(orderRequestDTO.id())
 			.status(orderRequestDTO.status())
 			.build();
 	}

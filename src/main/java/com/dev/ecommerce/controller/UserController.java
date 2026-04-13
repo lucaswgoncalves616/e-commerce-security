@@ -27,7 +27,7 @@ public class UserController {
 		this.userService = userService;
 	}
 
-	@GetMapping
+	@GetMapping("/admin")
 	public ResponseEntity<List<UserResponseDTO>> listAllUsers() {
 		return ResponseEntity.ok(userService.listAllUsers());
 	}
@@ -49,7 +49,7 @@ public class UserController {
 			.body(userService.createUser(userRequestDTO));
 	}
 
-	@PutMapping("/{userId}")
+	@PutMapping("/admin/{userId}")
 	public ResponseEntity<UserResponseDTO> updateUser(@PathVariable Long userId,
 		@RequestBody @Valid UserRequestDTO userRequestDTO) {
 
@@ -61,16 +61,11 @@ public class UserController {
 		}
 	}
 
-	@DeleteMapping("/{userId}")
+	@DeleteMapping("/admin/{userId}")
 	public ResponseEntity<Void> deleteUser(@PathVariable Long userId) {
 		if (userService.deleteUser(userId)) {
 			return ResponseEntity.noContent().build();
 		}
 		return ResponseEntity.internalServerError().build();
-	}
-
-	@GetMapping("/admin")
-	public String admin() {
-		return "Acesso ADMIN";
 	}
 }

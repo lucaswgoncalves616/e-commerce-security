@@ -20,7 +20,6 @@ public class UserMapper {
 
 	public User toEntity(UserRequestDTO userRequestDTO) {
 		return User.builder()
-			.id(userRequestDTO.id())
 			.name(userRequestDTO.name())
 			.email(userRequestDTO.email())
 			.phoneNumber(userRequestDTO.phoneNumber())

@@ -20,7 +20,6 @@ public class ProductMapper {
 
 	public Product toEntity(ProductRequestDTO productRequestDTO) {
 		return Product.builder()
-			.id(productRequestDTO.id())
 			.name(productRequestDTO.name())
 			.description(productRequestDTO.description())
 			.price(productRequestDTO.price())
