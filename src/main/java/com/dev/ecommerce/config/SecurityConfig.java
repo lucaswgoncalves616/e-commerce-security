@@ -23,8 +23,13 @@ public class SecurityConfig {
                                 "/swagger-ui/**",
                                 "/swagger-ui.html"
                         ).permitAll()
-                        .requestMatchers("/api/users").permitAll()
-                        .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/api/users/createUser").permitAll()
+                        .requestMatchers(
+                                        "api/users/showAll",
+                                        "api/users/update/**",
+                                        "api/users/delete/**",
+                                        "api/orders",
+                                        "api/payments/").hasRole("ADMIN")
                         .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults());
 

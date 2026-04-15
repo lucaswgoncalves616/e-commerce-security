@@ -27,7 +27,7 @@ public class UserController {
 		this.userService = userService;
 	}
 
-	@GetMapping("/admin")
+	@GetMapping("/showAll")
 	public ResponseEntity<List<UserResponseDTO>> listAllUsers() {
 		return ResponseEntity.ok(userService.listAllUsers());
 	}
@@ -41,7 +41,7 @@ public class UserController {
 		}
 	}
 
-	@PostMapping
+	@PostMapping("createUser")
 	public ResponseEntity<UserResponseDTO> createUser(
 		@RequestBody @Valid UserRequestDTO userRequestDTO) {
 
@@ -49,7 +49,7 @@ public class UserController {
 			.body(userService.createUser(userRequestDTO));
 	}
 
-	@PutMapping("/admin/{userId}")
+	@PutMapping("/update/{userId}")
 	public ResponseEntity<UserResponseDTO> updateUser(@PathVariable Long userId,
 		@RequestBody @Valid UserRequestDTO userRequestDTO) {
 
@@ -61,7 +61,7 @@ public class UserController {
 		}
 	}
 
-	@DeleteMapping("/admin/{userId}")
+	@DeleteMapping("/delete/{userId}")
 	public ResponseEntity<Void> deleteUser(@PathVariable Long userId) {
 		if (userService.deleteUser(userId)) {
 			return ResponseEntity.noContent().build();
