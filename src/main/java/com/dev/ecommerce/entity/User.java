@@ -51,4 +51,6 @@ public class User {
 	mappedBy = "user",
 	cascade = CascadeType.ALL)
 	private List<Order> orders = new ArrayList<>();
+
+	private String photo;
 }

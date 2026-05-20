@@ -31,9 +31,12 @@ public class UserService {
 		return userMapper.toDTO(userRepository.getReferenceById(userId));
 	}
 
-	public UserResponseDTO createUser(UserRequestDTO userRequestDTO) {
-		return userMapper.toDTO(
-			userRepository.save(userMapper.toEntity(userRequestDTO)));
+	public UserResponseDTO createUser(UserRequestDTO userRequestDTO, String path) {
+		User user = userMapper.toEntity(userRequestDTO);
+		user.setPhoto(path);
+
+		User savedUser = userRepository.save(user);
+		return userMapper.toDTO(savedUser);
 	}
 
 	public UserResponseDTO updateUser(Long userId,

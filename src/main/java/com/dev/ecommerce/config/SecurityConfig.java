@@ -7,7 +7,6 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -23,24 +22,26 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
                                 "/v3/api-docs/**",
                                 "/swagger-ui/**",
-                                "/swagger-ui.html"
+                                "/swagger-ui.html",
+                                "/api/users/createUser",
+                                "/login"
                         ).permitAll()
-                        .requestMatchers("/api/users/createUser").permitAll()
                         .requestMatchers(
-                                "api/users/showAll",
-                                "api/users/update/**",
-                                "api/users/delete/**",
-                                "api/orders",
-                                "api/payments/").hasRole("ADMIN")
+                                "/api/users/showAll",
+                                "/api/users/update/**",
+                                "/api/users/delete/**",
+                                "/api/orders/**",
+                                "/api/payments/**"
+                        ).hasRole("ADMIN")
                         .anyRequest().authenticated())
-                        .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
 
